@@ -23,7 +23,7 @@ public class HospitalMvcApplication {
     @Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository){
         return args -> {
-          /*  patientRepository.save(new Patient(null,"hassan",new Date(),false,122));
+            patientRepository.save(new Patient(null,"hassan",new Date(),false,122));
             patientRepository.save(new Patient(null,"mohammed",new Date(),true,120));
             patientRepository.save(new Patient(null,"yassine",new Date(),false,158));
             patientRepository.save(new Patient(null,"noha",new Date(),true,1200));
@@ -40,7 +40,7 @@ public class HospitalMvcApplication {
 
 
 
-            });*/
+            });
 
 
         };
