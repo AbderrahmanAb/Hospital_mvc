@@ -11,7 +11,12 @@
 <body>
 <div layout:fragment="content1">
 
-    <form method="post" th:action="@{/admin/save}">
+    <form method="post" th:action="@{/admin/Save}">
+        <div>
+            <label>ID</label>
+            <input class="form-control" type="text" name="id" th:value="${patient.id}">
+
+        </div>
         <div>
             <label>Nom</label>
             <input class="form-control" type="text" name="nom" th:value="${patient.nom}">

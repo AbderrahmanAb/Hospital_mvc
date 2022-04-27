@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.naming.Binding;
@@ -31,7 +32,8 @@ public class PatientController {
          return "patients";
 
      }
-     @GetMapping(path = "/delete")
+
+     @GetMapping(path = "/admin/delete")
     public String delete(Long id){
          patientRepository.deleteById(id);
 
@@ -41,17 +43,26 @@ public class PatientController {
     public String home(Long id,String keyword,int page){
         return "redirect:/index?page="+page+"&keyword="+keyword;
     }
-    @GetMapping(path = "/formPatients")
+    @GetMapping(path = "/admin/formPatients")
     public String formPatients(Model model){
          model.addAttribute("patient",new Patient());
          return "formPatients";
     }
-    @GetMapping(path = "/save")
-    public String save(Model model, @Valid Patient patient, BindingResult bindingResult){
+    @PostMapping(path = "/admin/Save")
+    public String Save(Model model, @Valid Patient patient, BindingResult bindingResult){
          if(bindingResult.hasErrors()) return "formPatients";
          patientRepository.save(patient);
-         return "formPatients";
+         return "redirect:/index";
 
     }
+    @GetMapping(path = "/admin/edit")
+    public String edit(Model model,Long id){
+         Patient patient=patientRepository.findById(id).orElse(null);
+         if(patient ==null) throw new RuntimeException("Patient introuvable");
+        model.addAttribute("patient",patient);
+        return "editPatient";
+    }
+
+
 
 }

@@ -1,6 +1,7 @@
 package mvx.emsi.hospital_mvc;
 
 import mvx.emsi.hospital_mvc.entities.Patient;
+import mvx.emsi.hospital_mvc.sec.service.SecurityService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -20,7 +21,7 @@ public class HospitalMvcApplication {
     public static void main(String[] args) {
         SpringApplication.run(HospitalMvcApplication.class, args);
     }
-    @Bean
+    //@Bean
     CommandLineRunner commandLineRunner(PatientRepository patientRepository){
         return args -> {
             patientRepository.save(new Patient(null,"hassan",new Date(),false,122));
@@ -43,6 +44,19 @@ public class HospitalMvcApplication {
             });
 
 
+        };
+    }
+    //@Bean
+    CommandLineRunner saveUsers(SecurityService securityService){
+        return args -> {
+          /*  securityService.saveUser("mohammed","1234","1234");
+            securityService.saveUser("yassmine","1234","1234");
+            securityService.saveUser("hassan","1234","1234");
+            securityService.saveNewRole("USER","");
+            securityService.saveNewRole("ADMIN","");
+            securityService.addRoleToUser("mohammed","USER");*/
+           securityService.addRoleToUser("hassan","ADMIN");
+            securityService.addRoleToUser("yasmine","USER");
         };
     }
 
