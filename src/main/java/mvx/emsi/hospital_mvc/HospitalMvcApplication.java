@@ -1,6 +1,8 @@
 package mvx.emsi.hospital_mvc;
 
+import mvx.emsi.hospital_mvc.entities.Medecin;
 import mvx.emsi.hospital_mvc.entities.Patient;
+import mvx.emsi.hospital_mvc.repositories.MedecinRepository;
 import mvx.emsi.hospital_mvc.sec.service.SecurityService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Date;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 
@@ -21,8 +24,8 @@ public class HospitalMvcApplication {
     public static void main(String[] args) {
         SpringApplication.run(HospitalMvcApplication.class, args);
     }
-    //@Bean
-    CommandLineRunner commandLineRunner(PatientRepository patientRepository){
+    @Bean
+    CommandLineRunner commandLineRunner(PatientRepository patientRepository, MedecinRepository medecinRepository){
         return args -> {
             patientRepository.save(new Patient(null,"hassan",new Date(),false,122));
             patientRepository.save(new Patient(null,"mohammed",new Date(),true,120));
@@ -42,6 +45,14 @@ public class HospitalMvcApplication {
 
 
             });
+            Stream.of("aymane","Hanane","yassmine").forEach(name->{
+                Medecin medecin = new Medecin();
+                medecin.setNom(name);
+                medecin.setEmail(name+"@gmail.com");
+                medecin.setSpecialite(Math.random()>0.5?"Cardio":"Dentiste");
+                medecinRepository.save(medecin);
+
+            });
 
 
         };
@@ -55,8 +66,8 @@ public class HospitalMvcApplication {
             securityService.saveNewRole("USER","");
             securityService.saveNewRole("ADMIN","");
             securityService.addRoleToUser("mohammed","USER");*/
-           securityService.addRoleToUser("hassan","ADMIN");
-            securityService.addRoleToUser("yasmine","USER");
+           //securityService.addRoleToUser("hassan","ADMIN");
+            securityService.addRoleToUser("hassan","USER");
         };
     }
 
