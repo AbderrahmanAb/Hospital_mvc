@@ -43,10 +43,12 @@
                         <td th:text="${p.malade}"></td>
                         <td th:text="${p.score}"></td>
                         <td sec:authorize="hasAuthority('ADMIN')">
-                            <a onclick="return confirm('Etes vous sure?')" class="btn btn-danger" th:href="@{/admin/delete(id=${p.id},keyword=${keyword},page=${CurrentPage})}">Delete</a>
+
+
+                            <a onclick="return confirm('Etes vous sure?')"  th:href="@{/admin/delete(id=${p.id},keyword=${keyword},page=${CurrentPage})}"><img th:src="@{/img/delete.png}"  ></a>
                         </td>
                         <td sec:authorize="hasAuthority('ADMIN')">
-                            <a  class="btn btn-success" th:href="@{/admin/edit(id=${p.id})}">Edit</a>
+                            <a   th:href="@{/admin/edit(id=${p.id})}"><img th:src="@{/img/edit1.png}"  ></a>
                         </td>
 
                     </tr>
